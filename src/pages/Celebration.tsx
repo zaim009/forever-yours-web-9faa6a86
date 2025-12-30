@@ -1,5 +1,5 @@
-import { Heart, Sparkles, Star, Volume2, VolumeX } from 'lucide-react';
-import { useState, useEffect, useRef } from 'react';
+import { Heart, Sparkles, Star } from 'lucide-react';
+import { useState, useEffect } from 'react';
 import FallingElements from '@/components/FallingElements';
 import FloatingHearts from '@/components/FloatingHearts';
 
@@ -10,8 +10,6 @@ const Celebration = () => {
     minutes: 0,
     seconds: 0
   });
-  const [isMuted, setIsMuted] = useState(false);
-  const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
     const targetDate = new Date('2025-01-01T00:00:00').getTime();
@@ -37,20 +35,6 @@ const Celebration = () => {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.volume = 0.5;
-      audioRef.current.play().catch(() => {});
-    }
-  }, []);
-
-  const toggleMute = () => {
-    if (audioRef.current) {
-      audioRef.current.muted = !audioRef.current.muted;
-      setIsMuted(!isMuted);
-    }
-  };
-
   return (
     <main className="min-h-screen flex items-center justify-center relative overflow-hidden">
       {/* Video Background */}
@@ -66,18 +50,6 @@ const Celebration = () => {
 
       {/* Overlay for readability */}
       <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background/70 z-[1]" />
-
-      <audio ref={audioRef} loop>
-        <source src="/audio/song1.mp3" type="audio/mpeg" />
-      </audio>
-      
-      {/* Music control */}
-      <button 
-        onClick={toggleMute}
-        className="fixed top-6 right-6 z-50 bg-card/80 backdrop-blur-sm p-3 rounded-full shadow-romantic border border-primary/20 hover:scale-110 transition-transform"
-      >
-        {isMuted ? <VolumeX className="text-primary" size={24} /> : <Volume2 className="text-primary" size={24} />}
-      </button>
 
       <FallingElements />
       <FloatingHearts />
