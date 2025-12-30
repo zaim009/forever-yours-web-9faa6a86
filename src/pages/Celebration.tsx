@@ -52,7 +52,21 @@ const Celebration = () => {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-romantic flex items-center justify-center relative overflow-hidden">
+    <main className="min-h-screen flex items-center justify-center relative overflow-hidden">
+      {/* Video Background */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover z-0"
+      >
+        <source src="/videos/video7.mp4" type="video/mp4" />
+      </video>
+
+      {/* Overlay for readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background/70 z-[1]" />
+
       <audio ref={audioRef} loop>
         <source src="/audio/song1.mp3" type="audio/mpeg" />
       </audio>
@@ -69,8 +83,8 @@ const Celebration = () => {
       <FloatingHearts />
       
       {/* Multiple glow effects */}
-      <div className="absolute top-1/3 left-1/4 w-[400px] h-[400px] bg-gradient-glow opacity-40" />
-      <div className="absolute bottom-1/3 right-1/4 w-[500px] h-[500px] bg-gradient-glow opacity-30" />
+      <div className="absolute top-1/3 left-1/4 w-[400px] h-[400px] bg-gradient-glow opacity-30 z-[2]" />
+      <div className="absolute bottom-1/3 right-1/4 w-[500px] h-[500px] bg-gradient-glow opacity-20 z-[2]" />
       
       <div className="relative z-10 text-center px-6 max-w-3xl mx-auto">
         {/* Celebration header */}

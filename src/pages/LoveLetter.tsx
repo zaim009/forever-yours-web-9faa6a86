@@ -8,18 +8,32 @@ const LoveLetter = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-gradient-romantic">
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Video Background */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover z-0"
+      >
+        <source src="/videos/video6.mp4" type="video/mp4" />
+      </video>
+
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/70 to-background/80 z-[1]" />
+
       <FallingElements />
       <FloatingHearts />
 
       {/* Decorative elements */}
-      <div className="absolute top-10 left-10 animate-pulse">
+      <div className="absolute top-10 left-10 animate-pulse z-[3]">
         <Sparkles className="w-8 h-8 text-love-pink" />
       </div>
-      <div className="absolute top-20 right-16 animate-pulse delay-300">
+      <div className="absolute top-20 right-16 animate-pulse delay-300 z-[3]">
         <Sparkles className="w-6 h-6 text-rose-glow" />
       </div>
-      <div className="absolute bottom-32 left-20 animate-pulse delay-500">
+      <div className="absolute bottom-32 left-20 animate-pulse delay-500 z-[3]">
         <Sparkles className="w-7 h-7 text-blush" />
       </div>
 

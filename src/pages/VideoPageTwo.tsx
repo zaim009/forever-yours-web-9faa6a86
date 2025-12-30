@@ -16,7 +16,7 @@ const VideoPageTwo = () => {
         playsInline
         className="absolute inset-0 w-full h-full object-cover"
       >
-        <source src="/videos/video2.mp4" type="video/mp4" />
+        <source src="/videos/video5.mp4" type="video/mp4" />
       </video>
 
       {/* Overlay */}
