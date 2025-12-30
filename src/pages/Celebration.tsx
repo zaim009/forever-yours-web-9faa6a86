@@ -1,10 +1,70 @@
-import { Heart, Sparkles, Star } from 'lucide-react';
+import { Heart, Sparkles, Star, Volume2, VolumeX } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
 import FallingElements from '@/components/FallingElements';
 import FloatingHearts from '@/components/FloatingHearts';
 
 const Celebration = () => {
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0
+  });
+  const [isMuted, setIsMuted] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  useEffect(() => {
+    const targetDate = new Date('2025-01-01T00:00:00').getTime();
+
+    const updateCountdown = () => {
+      const now = new Date().getTime();
+      const difference = targetDate - now;
+
+      if (difference > 0) {
+        setTimeLeft({
+          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
+          seconds: Math.floor((difference % (1000 * 60)) / 1000)
+        });
+      } else {
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+      }
+    };
+
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = 0.5;
+      audioRef.current.play().catch(() => {});
+    }
+  }, []);
+
+  const toggleMute = () => {
+    if (audioRef.current) {
+      audioRef.current.muted = !audioRef.current.muted;
+      setIsMuted(!isMuted);
+    }
+  };
+
   return (
     <main className="min-h-screen bg-gradient-romantic flex items-center justify-center relative overflow-hidden">
+      <audio ref={audioRef} loop>
+        <source src="/audio/song1.mp3" type="audio/mpeg" />
+      </audio>
+      
+      {/* Music control */}
+      <button 
+        onClick={toggleMute}
+        className="fixed top-6 right-6 z-50 bg-card/80 backdrop-blur-sm p-3 rounded-full shadow-romantic border border-primary/20 hover:scale-110 transition-transform"
+      >
+        {isMuted ? <VolumeX className="text-primary" size={24} /> : <Volume2 className="text-primary" size={24} />}
+      </button>
+
       <FallingElements />
       <FloatingHearts />
       
@@ -24,34 +84,54 @@ const Celebration = () => {
 
         {/* Main message */}
         <h1 
-          className="font-display text-6xl md:text-8xl text-foreground mb-6 animate-fade-in-up"
+          className="font-display text-5xl md:text-7xl text-foreground mb-4 animate-fade-in-up"
           style={{ textShadow: '0 4px 30px hsl(340 85% 65% / 0.4)' }}
         >
           Happy New Year!
         </h1>
 
-        <div className="space-y-4 animate-fade-in-up animation-delay-200">
-          <p className="font-display text-3xl md:text-4xl text-primary">
+        {/* Countdown Timer */}
+        <div className="animate-fade-in-up animation-delay-200 mb-8">
+          <p className="text-muted-foreground text-sm mb-4 font-body">Countdown to 2025</p>
+          <div className="flex justify-center gap-3 md:gap-6">
+            {[
+              { label: 'Days', value: timeLeft.days },
+              { label: 'Hours', value: timeLeft.hours },
+              { label: 'Minutes', value: timeLeft.minutes },
+              { label: 'Seconds', value: timeLeft.seconds }
+            ].map((item) => (
+              <div key={item.label} className="bg-card/80 backdrop-blur-sm rounded-xl px-4 py-3 md:px-6 md:py-4 shadow-romantic border border-primary/20">
+                <p className="font-display text-3xl md:text-5xl text-primary animate-pulse-glow">
+                  {String(item.value).padStart(2, '0')}
+                </p>
+                <p className="text-muted-foreground text-xs md:text-sm font-body mt-1">{item.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="space-y-3 animate-fade-in-up animation-delay-300">
+          <p className="font-display text-2xl md:text-3xl text-primary">
             My Love ❤️
           </p>
           
-          <p className="text-muted-foreground text-lg md:text-xl font-body max-w-xl mx-auto leading-relaxed">
+          <p className="text-muted-foreground text-base md:text-lg font-body max-w-xl mx-auto leading-relaxed">
             Here's to another year of love, laughter, and endless adventures together. 
             You make every moment magical! ✨
           </p>
         </div>
 
         {/* Year display */}
-        <div className="mt-12 animate-scale-in animation-delay-300">
-          <div className="inline-block bg-card/90 backdrop-blur-sm rounded-2xl px-10 py-6 shadow-romantic border border-primary/20">
-            <p className="font-display text-7xl md:text-8xl text-primary animate-pulse-glow" style={{ display: 'inline-block' }}>
+        <div className="mt-8 animate-scale-in animation-delay-400">
+          <div className="inline-block bg-card/90 backdrop-blur-sm rounded-2xl px-8 py-4 shadow-romantic border border-primary/20">
+            <p className="font-display text-5xl md:text-6xl text-primary animate-pulse-glow" style={{ display: 'inline-block' }}>
               2025
             </p>
           </div>
         </div>
 
         {/* Love message */}
-        <div className="mt-10 animate-fade-in-up animation-delay-500">
+        <div className="mt-6 animate-fade-in-up animation-delay-500">
           <div className="flex justify-center gap-3 items-center">
             <Heart size={20} className="text-primary fill-primary" />
             <span className="font-body text-foreground/80">Forever Yours</span>
@@ -60,7 +140,7 @@ const Celebration = () => {
         </div>
 
         {/* Decorative hearts row */}
-        <div className="mt-8 flex justify-center gap-4 animate-bounce-soft animation-delay-300">
+        <div className="mt-6 flex justify-center gap-4 animate-bounce-soft animation-delay-300">
           {[...Array(5)].map((_, i) => (
             <Heart 
               key={i} 
