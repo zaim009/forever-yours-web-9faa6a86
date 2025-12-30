@@ -8,12 +8,26 @@ const Index = () => {
   const navigate = useNavigate();
 
   return (
-    <main className="min-h-screen bg-gradient-romantic flex items-center justify-center relative overflow-hidden">
+    <main className="min-h-screen flex items-center justify-center relative overflow-hidden">
+      {/* Video Background */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover z-0"
+      >
+        <source src="/videos/video1.mp4" type="video/mp4" />
+      </video>
+      
+      {/* Overlay for readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background/70 z-[1]" />
+      
       <FallingElements />
       <FloatingHearts />
       
       {/* Central glow effect */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-glow opacity-60" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-glow opacity-40 z-[2]" />
       
       <div className="relative z-10 text-center px-6 max-w-2xl mx-auto">
         {/* Decorative top */}
