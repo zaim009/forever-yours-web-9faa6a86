@@ -12,7 +12,7 @@ const QuestionTwo = () => {
   const handleYes = () => {
     setShowCelebration(true);
     setTimeout(() => {
-      navigate('/celebration');
+      navigate('/memories-one');
     }, 1500);
   };
 
