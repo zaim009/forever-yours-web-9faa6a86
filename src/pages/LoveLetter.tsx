@@ -89,10 +89,10 @@ const LoveLetter = () => {
           <Button
             variant="love"
             size="lg"
-            onClick={() => navigate("/celebration")}
+            onClick={() => navigate("/snowfall-kiss")}
             className="group mt-6"
           >
-            Happy New Year 2025!
+            Continue Our Story
             <Sparkles className="ml-2 w-5 h-5 group-hover:rotate-12 transition-transform" />
           </Button>
         </div>

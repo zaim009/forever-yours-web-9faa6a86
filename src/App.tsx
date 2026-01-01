@@ -10,6 +10,8 @@ import QuestionTwo from "./pages/QuestionTwo";
 import VideoPageOne from "./pages/VideoPageOne";
 import VideoPageTwo from "./pages/VideoPageTwo";
 import LoveLetter from "./pages/LoveLetter";
+import SnowfallKiss from "./pages/SnowfallKiss";
+import NightWalk from "./pages/NightWalk";
 import Celebration from "./pages/Celebration";
 import NotFound from "./pages/NotFound";
 
@@ -29,6 +31,8 @@ const App = () => (
             <Route path="/memories-one" element={<VideoPageOne />} />
             <Route path="/memories-two" element={<VideoPageTwo />} />
             <Route path="/love-letter" element={<LoveLetter />} />
+            <Route path="/snowfall-kiss" element={<SnowfallKiss />} />
+            <Route path="/night-walk" element={<NightWalk />} />
             <Route path="/celebration" element={<Celebration />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
